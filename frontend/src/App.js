@@ -1,7 +1,7 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import React from 'react';
-import AppRoutes from "./Routes.js";
+import AppRoutes from "./Routes";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { __DEV__ } from "@apollo/client/utilities/globals";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";

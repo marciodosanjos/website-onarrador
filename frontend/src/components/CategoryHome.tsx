@@ -1,134 +1,94 @@
-import { Box, Container, Link, Grid, Typography } from "@mui/material";
-import React from "react";
+import React from 'react';
+import { Container, Box, Link, Grid, Paper, Typography } from '@mui/material';
 
-export default function CategoryHome(props: {
-  category: string;
-  imgURL: string;
-}) {
+
+interface Article {
+  title: string;
+  excerpt: string;
+  image: string;
+  link: string;
+  categories: Categories,
+  isSticky: boolean;
+  slug: string;
+  featuredImage: Medias
+}
+
+interface Category {
+  name: string,
+  slug: string,
+
+}
+
+interface Categories {
+  nodes: Category[]
+}
+
+interface Articles {
+  articles: Article[],
+}
+
+interface Image {
+  altText: string,
+  description: string,
+  mediaItemUrl: string
+}
+
+interface Medias {
+  node: Image
+}
+
+export default function CategoryHome({ articles, category }: Articles & {category: string}) {
   return (
-    <Container sx={{ marginY: 5 }}>
-      <Typography
-        sx={{
-          fontSize: "3em",
-          fontWeight: "bold",
-          borderTop: "1px solid",
-          marginBottom: 4
-        }}
-      >
-        {props.category}
-      </Typography>
-      <Grid container spacing={3} sx={{ wrap: "noWrap" }}>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={7}
-          lg={7}
-          sx={
-            {
-              // border: "1px solid",
-              //paddingLeft: "0px !important",
-              // paddingTop: "0px !important",
-            }
-          }
-        >
-          <Link href={"wwww.google.com"} target="_blank">
-            <img
-              src={props.imgURL}
-              alt={"Alt Text"}
-              width={900}
-              height={0}
-              style={{ objectFit: "contain", width: "100%", height: "auto" }}
-            />
-            <Box sx={{ paddingY: 1 }}>
-              <Typography variant="h4">
-                Título de destaque para testar como fica com duas linhas
+  
+    <Container sx={{borderTop: '1px solid', paddingTop: '2em'}}>
+      
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+       
+          <Typography variant='h3'>
+            {category}
+          </Typography> 
+          
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          { articles && articles.length > 0 && articles.map((article, index) => article.isSticky && (
+            <Link href={`${article.categories.nodes[0].name}/${article.slug} ` }>
+            <Box key={index}>
+              <img src={article.featuredImage.node.mediaItemUrl} alt={article.title} style={{ width: '100%' }} />
+              <Typography variant="h2" gutterBottom>
+                {article.title}
               </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatibus iste, minima voluptate perferendis tempore quam
-                mollitia sequi vitae.
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  marginTop: 1
-                }}
-              >
-                Autor
+              <Typography variant="body2">
+                {article.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
               </Typography>
             </Box>
-          </Link>
+            </Link>
+
+          )) }
+
         </Grid>
-        <Grid
-          className="artigos"
-          item
-          xs={12}
-          sm={12}
-          md={4}
-          lg={4}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "column",
-            gap: 4
-          }}
-        >
+        <Grid item xs={12} sm={6}>
           <Box>
-            <Link href={"wwww.google.com"} target="_blank">
-              <Typography variant="h4">
-                Título de destaque para testar como fica com duas linhas
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  marginTop: 1
-                }}
-              >
-                Autor do texto
-              </Typography>
-            </Link>
-          </Box>
-          <Box>
-            <Link href={"wwww.google.com"} target="_blank">
-              <Typography variant="h4">
-                Título de destaque para testar como fica com duas linhas
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  marginTop: 1
-                }}
-              >
-                Autor do texto
-              </Typography>
-            </Link>
-          </Box>
-          <Box>
-            <Link href={"wwww.google.com"} target="_blank">
-              <Typography variant="h4">
-                Título de destaque para testar como fica com duas linhas
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  marginTop: 1
-                }}
-              >
-                Autor do texto
-              </Typography>
-            </Link>
+            {articles && articles.length > 0 && articles.slice(1).map((artigo: Article, index: number) => (
+              
+              <Link href={`${artigo.categories.nodes[0].name}/${artigo.slug} ` }>
+              <div key={index}>
+                <Typography variant="h4">
+                  {artigo.title}
+                </Typography>
+                <Typography variant="body2">
+                  {artigo.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
+                </Typography>
+              </div>
+                </Link>
+
+            ))}
           </Box>
         </Grid>
-      </Grid>
+    </Grid>
+
+    
     </Container>
+  
   );
 }

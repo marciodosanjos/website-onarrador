@@ -47,14 +47,10 @@ export default function usePostData() {
 
   if (error) {
     console.log(error);
-    
   }
   if (error) {
     console.log(error);
-    
   }
-
-
 
   return { loading, error, data };
 }

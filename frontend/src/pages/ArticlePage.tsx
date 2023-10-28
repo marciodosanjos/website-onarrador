@@ -5,7 +5,6 @@ import { Box, Container, Link, Grid, Typography } from "@mui/material";
 import React from "react";
 
 export default function ArticlePage() {
-
   const data = useData()
   // const { category, slug } = useParams();
   // const postsData = useData();

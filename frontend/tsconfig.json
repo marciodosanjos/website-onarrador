@@ -4,7 +4,13 @@
     ],
     "compilerOptions": {
         "typeRoots": ["./src/types", "./node_modules/@types"],
-
+        "module": "es2015",
+        "moduleResolution": "bundler",
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "composite": true,
+        "noEmit": false,
+        "allowImportingTsExtensions": true,
         "strict": true,
         "esModuleInterop": true,
         "lib": [
