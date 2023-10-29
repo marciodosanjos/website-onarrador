@@ -31,7 +31,7 @@ export default function Header() {
         >
           {categories.map((category, index) => (
             <Link
-              href={"/"}
+              href={category.toLowerCase()}
               key={index}
               sx={{
                 color: "black",

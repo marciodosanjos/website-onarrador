@@ -1,40 +1,18 @@
 import { useParams } from "react-router-dom";
-import useData from "./../hooks/usePostsData";
-import { useEffect, useState } from "react";
 import { Box, Container, Link, Grid, Typography } from "@mui/material";
-import React from "react";
+import usePostsData from "./../hooks/usePostsData";
+import  {Post} from "./../context/ArticleContext";
 
 export default function ArticlePage() {
-  const data = useData()
-  // const { category, slug } = useParams();
-  // const postsData = useData();
-  // const [postData, setPostData] = useState(null);
-
-  // useEffect(() => {
-  //   const findPost = async () => {
-  //     const post = await postsData?.find(
-  //       (post) =>
-  //         post.slug === slug && post.categories![0] === parseInt(category)
-  //     );
-  //     setPostData(post);
-  //   };
-
-  //   findPost();
-  // }, [slug, postsData]);
-
-  // if (!postData) {
-  //   return <div>Buscando post</div>;
-  // }
+  const {loading, error, data} = usePostsData()
+  const {category, slug} = useParams()
+  const postData = data && data.posts && data.posts.nodes.filter((post: Post, index: number) => post.categories.nodes[0].name === category && post.slug === slug ? post : null)
 
   return (
     <>
-      {/* <div>{postData.title.rendered}</div>
-      <div>{postData.content.rendered.replace(/<\/?[^>]+(>|$)/g, "")}</div>
-      <Link href={`/${category}`}>Voltar</Link> */}
-
       <Container>
         <Typography variant="h2" sx={{ marginY: 3 }}>
-          Learn How to Pre-render Pages Using Static Generation with Next.js
+          { postData ? postData[0].title : null}
         </Typography>
         <Box
           sx={{
@@ -52,6 +30,9 @@ export default function ArticlePage() {
           />
           <Typography variant="subtitle2">Marcio dos Anjos</Typography>
         </Box>
+        <Typography variant="h4" sx={{ marginY: 3 }}>
+          {postData ? postData[0].excerpt.replace(/<\/?[^>]+(>|$)/g, "") : null}
+        </Typography>
       </Container>
     </>
   );

@@ -1,5 +1,4 @@
-import { Suspense } from "react";
-import { gql, TypedDocumentNode, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 const GET_MYPOSTS = gql`
   query Posts {

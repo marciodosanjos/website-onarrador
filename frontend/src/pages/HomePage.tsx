@@ -4,7 +4,9 @@ import FeaturedPost from "./../components/FeaturedPost";
 import CategoryHome from "./../components/CategoryHome";
 import React from "react";
 import usePostsData from "./../hooks/usePostsData";
-import DuasColunas from "../components/Teste"
+import  {Post, Category} from "./../context/ArticleContext";
+
+
 const categoryItems = [
   {
     category: "Ensaios",
@@ -23,64 +25,10 @@ const categoryItems = [
   // }
 ];
 
-interface Post {
-  title: string,
-  isSticky: boolean,
-  slug: string,
-  categories: Categories,
-  excerpt: string,
-  featuredImage: Medias
-
-}
-
-interface Category {
-  name: string,
-  slug: string,
-
-}
-
-interface Categories {
-  nodes: Category[]
-}
-
-interface Image {
-  altText: string,
-  description: string,
-  mediaItemUrl: string
-}
-
-interface Medias {
-  node: Image
-}
 
 export default function HomePage() {
 const {loading, error, data} = usePostsData()
 const postData = data && data.posts && data.posts.nodes
-
-const artigos = [
-  {
-    title: 'Artigo 1',
-    excerpt: 'Este é o resumo do artigo 1.',
-    image: 'https://s4.static.brasilescola.uol.com.br/be/2020/03/sociedade.jpg',
-    link: '/artigo1',
-    isSticky: true
-  },
-  {
-    title: 'Artigo 2',
-    excerpt: 'Este é o resumo do artigo 2.',
-    image: 'imagem2.jpg',
-    link: '/artigo2',
-    isSticky: false
-  },
-  {
-    title: 'Artigo 3',
-    excerpt: 'Este é o resumo do artigo 3.',
-    image: 'https://s4.static.brasilescola.uol.com.br/be/2020/03/sociedade.jpg',
-    link: '/artigo3',
-    isSticky: false
-  },
-  // Adicione mais objetos de artigo conforme necessário
-];
 
   return (
     <>
@@ -105,7 +53,7 @@ const artigos = [
 
     
       {categoryItems.map((categoryItem, index) => (
-        <CategoryHome articles={postData} category={categoryItem.category}/>
+        <CategoryHome posts={postData} category={categoryItem.category}/>
       ))}
       
       <Footer />

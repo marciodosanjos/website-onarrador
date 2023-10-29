@@ -1,47 +1,17 @@
 import React from 'react';
 import { Container, Box, Link, Grid, Paper, Typography } from '@mui/material';
+import {Post, Posts, CategoryHomeProps } from "./../context/ArticleContext";
 
-
-interface Article {
-  title: string;
-  excerpt: string;
-  image: string;
-  link: string;
-  categories: Categories,
-  isSticky: boolean;
-  slug: string;
-  featuredImage: Medias
+function sortDataPost(a: Post, b: Post) {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateA.getTime() - dateB.getTime();
 }
 
-interface Category {
-  name: string,
-  slug: string,
-
-}
-
-interface Categories {
-  nodes: Category[]
-}
-
-interface Articles {
-  articles: Article[],
-}
-
-interface Image {
-  altText: string,
-  description: string,
-  mediaItemUrl: string
-}
-
-interface Medias {
-  node: Image
-}
-
-export default function CategoryHome({ articles, category }: Articles & {category: string}) {
+export default function CategoryHome({ posts, category }: CategoryHomeProps) {
   return (
   
-    <Container sx={{borderTop: '1px solid', paddingTop: '2em'}}>
-      
+    <Container sx={{borderTop: '1px solid', paddingTop: '2em'}}>  
       <Grid container spacing={3}>
         <Grid item xs={12}>
        
@@ -51,38 +21,39 @@ export default function CategoryHome({ articles, category }: Articles & {categor
           
         </Grid>
         <Grid item xs={12} sm={6}>
-          { articles && articles.length > 0 && articles.map((article, index) => article.isSticky && (
-            <Link href={`${article.categories.nodes[0].name}/${article.slug} ` }>
+          { posts && posts.length > 0 && posts.map((post: Post, index: number) => post.isSticky && (
+            <Link href={`${post.categories.nodes[0].name}/${post.slug} ` }>
             <Box key={index}>
-              <img src={article.featuredImage.node.mediaItemUrl} alt={article.title} style={{ width: '100%' }} />
+              <img src={post.featuredImage.node.mediaItemUrl} alt={post.title} style={{ width: '100%' }} />
               <Typography variant="h2" gutterBottom>
-                {article.title}
+                {post.title}
               </Typography>
               <Typography variant="body2">
-                {article.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
+                {post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
               </Typography>
             </Box>
             </Link>
 
           )) }
 
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box>
-            {articles && articles.length > 0 && articles.slice(1).map((artigo: Article, index: number) => (
+            {posts && posts.length > 0 && posts.filter((post: Post, index: number)=> post.isSticky !== true).map((post: Post, index: number) => (
               
-              <Link href={`${artigo.categories.nodes[0].name}/${artigo.slug} ` }>
+              <Link href={`${post.categories.nodes[0].name}/${post.slug} ` }>
               <div key={index}>
                 <Typography variant="h4">
-                  {artigo.title}
+                  {post.title}
                 </Typography>
                 <Typography variant="body2">
-                  {artigo.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
+                  {post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
                 </Typography>
               </div>
                 </Link>
 
-            ))}
+            )).slice(0,3).sort()}
           </Box>
         </Grid>
     </Grid>

@@ -8,8 +8,8 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<HomePage />} path="/" />
-        <Route element={<CategoryPage />} path="/:category" />
         <Route element={<ArticlePage />} path="/:category/:slug" />
+        <Route element={<CategoryPage />} path="/:category" />
       </Routes>
     </BrowserRouter>
   );

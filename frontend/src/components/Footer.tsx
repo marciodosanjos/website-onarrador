@@ -5,6 +5,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import React from "react";
 
 const currentYear = new Date().getFullYear();
+const categories = ["Crônicas", "Ensaios", "Reportagens"];
 
 export default function Footer() {
   return (
@@ -41,9 +42,10 @@ export default function Footer() {
             }}
           >
             <Typography sx={{ fontWeight: "bold" }}>Our Sections</Typography>
-            <Link href={"/ensaios"}>Ensaios</Link>
-            <Link href={"/reportagens"}>Cronicas</Link>
-            <Link href={"/cronicas"}>Reportagens</Link>
+            {categories.map((category, index) => (
+            <Link key={index} href={category.toLowerCase()}>{category}</Link>
+            ))}
+           
           </Grid>
           <Grid
             item
