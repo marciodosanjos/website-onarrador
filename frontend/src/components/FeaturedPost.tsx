@@ -109,23 +109,30 @@ export default function FeaturedPost(props: {
             md={6}
             lg={6}
             sx={{
-              justifyContent: "center",
-              textAlign: {
+              display: "flex",
+              justifyContent: {
                 xs: "center",
                 sm: "center",
-                md: "end",
-                lg: "end"
+                md: "flex-end",
+                lg: "flex-end"
               }
             }}
           >
-            <div style={{ position: "relative" }}>
+            <div
+              style={{
+                position: "relative",
+               
+                height: "500px",
+                width: "500px"
+              }}
+            >
               <img
                 src={props.srcImg}
                 alt={props.altText}
                 width={300}
                 height={300}
                 style={{
-                  objectFit: "contain",
+                  objectFit: "cover",
                   alignItems: "center",
                   width: "100%",
                   height: "100%"

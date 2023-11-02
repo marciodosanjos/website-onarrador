@@ -22,9 +22,18 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
         </Grid>
         <Grid item xs={12} sm={6}>
           { posts && posts.length > 0 && posts.map((post: Post, index: number) => post.isSticky && (
-            <Link href={`${post.categories.nodes[0].name}/${post.slug} ` }>
-            <Box key={index}>
-              <img src={post.featuredImage.node.mediaItemUrl} alt={post.title} style={{ width: '100%' }} />
+            <Link href={`/app/${post.categories.nodes[0].name}/${post.slug} ` }>
+            <Box className="box" key={index} sx={{
+                border: "1px solid",
+                
+              }}>
+              <img src={post.featuredImage.node.mediaItemUrl} alt={post.title}  style={{
+                  objectFit: "contain",
+                  width: "100%",
+                 
+                  
+                 // Defina a altura desejada
+                }} />
               <Typography variant="h2" gutterBottom>
                 {post.title}
               </Typography>
@@ -42,7 +51,7 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
           <Box>
             {posts && posts.length > 0 && posts.filter((post: Post, index: number)=> post.isSticky !== true).map((post: Post, index: number) => (
               
-              <Link href={`${post.categories.nodes[0].name}/${post.slug} ` }>
+              <Link href={`/app/${post.categories.nodes[0].name}/${post.slug} ` }>
               <div key={index}>
                 <Typography variant="h4">
                   {post.title}

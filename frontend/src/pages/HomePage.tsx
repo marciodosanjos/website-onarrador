@@ -1,10 +1,10 @@
-import Navbar from "./../components/Navbar";
-import Footer from "./../components/Footer";
-import FeaturedPost from "./../components/FeaturedPost";
-import CategoryHome from "./../components/CategoryHome";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import FeaturedPost from "../components/FeaturedPost";
+import CategoryHome from "../components/CategoryHome";
 import React from "react";
-import usePostsData from "./../hooks/usePostsData";
-import  {Post, Category} from "./../context/ArticleContext";
+import usePostsData from "../hooks/usePostsData";
+import  {Post, Category} from "../context/ArticleContext";
 
 
 const categoryItems = [
@@ -30,15 +30,18 @@ export default function HomePage() {
 const {loading, error, data} = usePostsData()
 const postData = data && data.posts && data.posts.nodes
 
+console.log(postData);
+
   return (
     <>
       <Navbar />
       {
         postData ? postData.map(
-        (post: Post, index: number) => post.isSticky == true && (
+          
+        (post: Post, index: number) => post && post.isSticky == true && (
           <FeaturedPost
           key={index}
-          link={`/${post.categories.nodes[0].name}/${post.slug}`}
+          link={`/app/${post.categories.nodes[0].name}/${post.slug}`}
           title={post.title}
           category={post.categories.nodes[0].name}
           excerpt={post.excerpt}

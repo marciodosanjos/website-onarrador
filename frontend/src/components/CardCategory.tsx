@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-export default function CardCategory(props: { title: string }) {
+export default function CardCategory(props: { title: string, img?:string }) {
   return (
     <Card>
       <CardActionArea>

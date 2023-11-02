@@ -50,7 +50,7 @@ export default function CategoryPage() {
              zIndex: 1
            }}
          >
-          <Link href={`/${category}/${post.slug}`}>
+          <Link href={`/app/${category}/${post.slug}`}>
            <Typography
              variant="h2"
              sx={{ color: "white", lineHeight: 1, marginBottom: 2 }}

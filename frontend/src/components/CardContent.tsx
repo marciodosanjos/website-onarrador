@@ -8,7 +8,7 @@ import { CardActionArea, Link } from "@mui/material";
 export default function ActionAreaCard(props: {title: string, excerpt: string, imageURL: string, category: string, slug: string}) {
   return (
     <Card>
-      <Link href={`/${props.category}/${props.slug}`}>
+      <Link href={`/app/${props.category}/${props.slug}`}>
       <CardActionArea>
         <CardMedia
           component="img"
