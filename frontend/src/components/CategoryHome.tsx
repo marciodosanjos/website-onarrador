@@ -11,20 +11,21 @@ function sortDataPost(a: Post, b: Post) {
 export default function CategoryHome({ posts, category }: CategoryHomeProps) {
   return (
   
-    <Container sx={{borderTop: '1px solid', paddingTop: '2em'}}>  
-      <Grid container spacing={3}>
+    <Container sx={{borderTop: '1px solid', paddingY: '2em'}}>  
+      <Grid container spacing={4}>
         <Grid item xs={12}>
        
-          <Typography variant='h3'>
+          <Typography sx={{textTransform: 'uppercase',  backgroundColor: "primary.main", textAlign: "center", padding: 1, width: 200,            color: "white"}}>
             {category}
           </Typography> 
           
+         
         </Grid>
         <Grid item xs={12} sm={6}>
           { posts && posts.length > 0 && posts.map((post: Post, index: number) => post.isSticky && (
-            <Link href={`/app/${post.categories.nodes[0].name}/${post.slug} ` }>
+            <Link href={`/build/${post.categories.nodes[0].name}/${post.slug} ` }>
             <Box className="box" key={index} sx={{
-                border: "1px solid",
+                //border: "1px solid",
                 
               }}>
               <img src={post.featuredImage.node.mediaItemUrl} alt={post.title}  style={{
@@ -32,12 +33,11 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
                   width: "100%",
                  
                   
-                 // Defina a altura desejada
                 }} />
-              <Typography variant="h2" gutterBottom>
+              <Typography variant="h2">
                 {post.title}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 {post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")}
               </Typography>
             </Box>
@@ -48,12 +48,12 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
 
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Box>
+          <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
             {posts && posts.length > 0 && posts.filter((post: Post, index: number)=> post.isSticky !== true).map((post: Post, index: number) => (
               
-              <Link href={`/app/${post.categories.nodes[0].name}/${post.slug} ` }>
+              <Link href={`/build/${post.categories.nodes[0].name}/${post.slug} ` }>
               <div key={index}>
-                <Typography variant="h4">
+                <Typography variant="h4" sx={{marginBottom: 2}}>
                   {post.title}
                 </Typography>
                 <Typography variant="body2">
@@ -62,7 +62,7 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
               </div>
                 </Link>
 
-            )).slice(0,3).sort()}
+            )).slice(0,3).sort().reverse()}
           </Box>
         </Grid>
     </Grid>

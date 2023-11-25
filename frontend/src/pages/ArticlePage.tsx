@@ -9,6 +9,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import CardCategory from "../components/CardCategory";
 import Navbar from "./../components/Navbar";
 import Footer from "./../components/Footer";
+//import styles from "./../style/styles.css";
 
 export default function ArticlePage() {
   const renderHTML = (html: any) => {
@@ -21,7 +22,7 @@ export default function ArticlePage() {
     data &&
     data.posts &&
     data.posts.nodes.filter((post: Post, index: number) =>
-      post.categories.nodes[0].name === category && post.slug === slug
+      post.categories.nodes[0].slug === category && post.slug === slug
         ? post
         : null
     );
@@ -38,7 +39,7 @@ export default function ArticlePage() {
     data.posts &&
     data.posts.nodes
       .filter((post: Post, index: number) =>
-        post.categories.nodes[0].name === category && post.slug !== slug
+        post.categories.nodes[0].slug === category && post.slug !== slug
           ? post
           : null
       )
@@ -47,6 +48,8 @@ export default function ArticlePage() {
   return (
     <>
       <Navbar />
+    {/* <div id="indicator"> Hello</div>
+     */}
       <HeaderArticle
         title={postData && postData[0] && postData[0].title ? postData[0].title : null}
         srcImg={postData && postData[0] ? postData[0].featuredImage.node.mediaItemUrl : null}
@@ -59,7 +62,7 @@ export default function ArticlePage() {
         altText={"Alt text"}
         copyrightPhoto={"Copy"}
       />
-      <Container
+      <Container 
         fixed
         sx={{
           textAlign: "center",
@@ -67,7 +70,7 @@ export default function ArticlePage() {
           marginBottom: "1em"
         }}
       >
-        <Grid container spacing={6}>
+        <Grid container spacing={6} >
           <Grid item sm={12} md={8}>
             {postData && postData[0] ? (
               <div

@@ -17,9 +17,6 @@ export const theme = createTheme({
         root: {
           textDecoration: "none",
           color: "black",
-          "&:hover": {
-            color: "#5c6e6e"
-          }
         }
       }
     },
@@ -36,7 +33,41 @@ export const theme = createTheme({
   typography: {
     fontFamily: ["Times New Roman", "Helvetica", "Arial", "sans-serif"].join(
       ","
-    )
+    ),
+    h1: {
+      lineHeight: 1,
+      fontWeight: 'bold',
+      "&:hover": {
+        color: "#5c6e6e"
+      }
+    },
+    h2: {
+      lineHeight: 1,
+      fontWeight: 'bold',
+      "&:hover": {
+        color: "#5c6e6e"
+      }
+    },
+    h4: {
+      lineHeight: 1,
+      fontWeight: 'bold',
+       "&:hover": {
+            color: "#5c6e6e"
+          }
+    },
+    h5: {
+      lineHeight: 1,
+      fontWeight: 'bold',
+       "&:hover": {
+            color: "#5c6e6e"
+          }
+    },
+    body2: {
+      fontSize: '1em'
+    },
+    body1: {
+      fontSize: '1.2em'
+    }
   },
   palette: {
     primary: {

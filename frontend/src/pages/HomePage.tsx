@@ -2,61 +2,39 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import FeaturedPost from "../components/FeaturedPost";
 import CategoryHome from "../components/CategoryHome";
-import React from "react";
 import usePostsData from "../hooks/usePostsData";
 import  {Post, Category} from "../context/ArticleContext";
 
-
-const categoryItems = [
-  {
-    category: "Ensaios",
-    imgURL:
-      "https://ensinarhistoria.com.br/s21/wp-content/uploads/2016/12/Senado-romano_Maccari-Cicero-1024x638.jpg"
-  },
-  // {
-  //   category: "Reportagens",
-  //   imgURL:
-  //     "https://www.institutoclaro.org.br/educacao/wp-content/uploads/sites/2/2023/04/Fundo.png"
-  // },
-  // {
-  //   category: "Cronicas",
-  //   imgURL:
-  //     "https://offloadmedia.feverup.com/saopaulosecreto.com/wp-content/uploads/2020/02/28082202/180315131158-osgemeos-self-portrait-tease-super-169-1024x576.jpg"
-  // }
-];
-
-
 export default function HomePage() {
-const {loading, error, data} = usePostsData()
-const postData = data && data.posts && data.posts.nodes
+const {loading, error, data} = usePostsData();
+const postData = data && data.posts && data.posts.nodes;
+const categoryItems = postData && postData.map((post: Post) => {return post.categories.nodes[0].name}).filter(function (category: string, pos: number, self: any) {
+  return self.indexOf(category) == pos
+});
+const featuredPost = postData && postData.filter((post: Post) => { return post.isSticky }).sort().slice(0,1)[0];
 
-console.log(postData);
+console.log(featuredPost);
 
   return (
     <>
       <Navbar />
-      {
-        postData ? postData.map(
-          
-        (post: Post, index: number) => post && post.isSticky == true && (
+       { featuredPost ? (
           <FeaturedPost
-          key={index}
-          link={`/app/${post.categories.nodes[0].name}/${post.slug}`}
-          title={post.title}
-          category={post.categories.nodes[0].name}
-          excerpt={post.excerpt}
-          srcImg={post.featuredImage.node.mediaItemUrl
+          link={`/build/${featuredPost && featuredPost.categories && featuredPost.categories.nodes[0].slug}/${featuredPost.slug}`}
+          title={featuredPost.title}
+          category={featuredPost && featuredPost.categories && featuredPost.categories.nodes[0].name}
+          excerpt={featuredPost.excerpt}
+          srcImg={featuredPost && featuredPost.categories && featuredPost.featuredImage.node.mediaItemUrl
 }
-          altText={"alttext"}
+          altText={"altext"}
           copyrightPhoto={"fotos"}
         />
-        )
-        ) : <div>carregando</div>
+       ) : <div>carregando</div>
       }
-
+      
     
-      {categoryItems.map((categoryItem, index) => (
-        <CategoryHome posts={postData} category={categoryItem.category}/>
+      {categoryItems && categoryItems.map((categoryItem: any, index: number) => (
+        <CategoryHome posts={postData.filter((post: Post)=> post && post.categories.nodes[0].name === categoryItem)} category={categoryItem}/>
       ))}
       
       <Footer />

@@ -62,7 +62,7 @@ export default function FeaturedPost(props: {
                   backgroundColor: "primary.main",
                   textAlign: "center",
                   padding: 1,
-                  width: 90,
+                  width: 200,
                   color: "white",
                   textTransform: "uppercase"
                 }}

@@ -8,7 +8,7 @@ export default function Header() {
     <>
       <AppBar position="static" sx={{ backgroundColor: "#primary.main" }}>
         <Toolbar variant="dense" sx={{ justifyContent: "center" }}>
-          <Link href={"/"}>
+          <Link href={"/build"}>
             <Typography
               sx={{
                 fontWeight: "bold",
@@ -31,7 +31,7 @@ export default function Header() {
         >
           {categories.map((category, index) => (
             <Link
-              href={category.toLowerCase()}
+              href={`/build/${category.toLowerCase()}`}
               key={index}
               sx={{
                 color: "black",

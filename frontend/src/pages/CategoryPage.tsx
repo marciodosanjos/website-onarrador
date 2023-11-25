@@ -17,7 +17,7 @@ export default function CategoryPage() {
     <>
       <Navbar />
 
-      {postsData ? postsData.map((post: Post, index: number) => post.isSticky === true && (
+      {postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === true && (
          <Box
          sx={{
            position: "relative",
@@ -50,7 +50,7 @@ export default function CategoryPage() {
              zIndex: 1
            }}
          >
-          <Link href={`/app/${category}/${post.slug}`}>
+          <Link href={`/build/${category}/${post.slug}`}>
            <Typography
              variant="h2"
              sx={{ color: "white", lineHeight: 1, marginBottom: 2 }}
@@ -71,7 +71,7 @@ export default function CategoryPage() {
     
       <Container>
         <Grid container spacing={1} sx={{ paddingY: 6, paddingX: 4 }}>
-          { postsData ? postsData.map((post: Post, index: number) => post.isSticky === false && (
+          { postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === false && (
 
             <Grid item xs={12} sm={6} md={6} lg={6} xl={4} key={index}>
               <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].name} slug={post.slug} />
@@ -110,7 +110,7 @@ export default function CategoryPage() {
 
 
       <Grid container spacing={1} sx={{ paddingY: 6, paddingX: 4 }}>
-          { postsData ? postsData.map((post: Post, index: number) => post.isSticky === false && (
+          { postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === false && (
 
             <Grid item xs={12} sm={6} md={6} lg={6} xl={4} key={index}>
               <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].name} slug={post.slug} />
