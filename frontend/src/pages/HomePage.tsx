@@ -5,6 +5,7 @@ import CategoryHome from "../components/CategoryHome";
 import usePostsData from "../hooks/usePostsData";
 import  {Post, Category} from "../context/ArticleContext";
 
+
 export default function HomePage() {
 const {loading, error, data} = usePostsData();
 const postData = data && data.posts && data.posts.nodes;
@@ -13,7 +14,8 @@ const categoryItems = postData && postData.map((post: Post) => {return post.cate
 });
 const featuredPost = postData && postData.filter((post: Post) => { return post.isSticky }).sort().slice(0,1)[0];
 
-console.log(featuredPost);
+
+console.log(postData);
 
   return (
     <>
@@ -31,10 +33,9 @@ console.log(featuredPost);
         />
        ) : <div>carregando</div>
       }
-      
     
       {categoryItems && categoryItems.map((categoryItem: any, index: number) => (
-        <CategoryHome posts={postData.filter((post: Post)=> post && post.categories.nodes[0].name === categoryItem)} category={categoryItem}/>
+        <CategoryHome key={index} posts={postData.filter((post: Post)=> post && post.categories.nodes[0].name === categoryItem)} category={categoryItem}/>
       ))}
       
       <Footer />

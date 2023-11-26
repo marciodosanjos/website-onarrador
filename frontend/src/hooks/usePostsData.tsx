@@ -1,8 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 
 const GET_MYPOSTS = gql`
-  query Posts {
-    posts {
+  query Posts ($first: Int, $after: String) {
+    posts (first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       nodes {
         excerpt
         isSticky
@@ -41,7 +45,9 @@ const GET_MYPOSTS = gql`
 
 export default function usePostData() {
   const { loading, error, data } = useQuery(GET_MYPOSTS, {
-    variables: {}, // Passa um objeto vazio se a consulta não requer variáveis.
+    variables: {
+      first: 100, 
+    },
   });
 
   if (error) {

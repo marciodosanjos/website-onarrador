@@ -23,7 +23,7 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
         </Grid>
         <Grid item xs={12} sm={6}>
           { posts && posts.length > 0 && posts.map((post: Post, index: number) => post.isSticky && (
-            <Link href={`/build/${post.categories.nodes[0].name}/${post.slug} ` }>
+            <Link href={`/build/${post.categories.nodes[0].slug}/${post.slug} ` }>
             <Box className="box" key={index} sx={{
                 //border: "1px solid",
                 
@@ -51,7 +51,7 @@ export default function CategoryHome({ posts, category }: CategoryHomeProps) {
           <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
             {posts && posts.length > 0 && posts.filter((post: Post, index: number)=> post.isSticky !== true).map((post: Post, index: number) => (
               
-              <Link href={`/build/${post.categories.nodes[0].name}/${post.slug} ` }>
+              <Link href={`/build/${post.categories.nodes[0].slug}/${post.slug} ` }>
               <div key={index}>
                 <Typography variant="h4" sx={{marginBottom: 2}}>
                   {post.title}

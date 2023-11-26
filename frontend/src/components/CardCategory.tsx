@@ -5,14 +5,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-export default function CardCategory(props: { title: string, img?:string }) {
+export default function CardCategory(props: { title: string, imgURL?:string }) {
   return (
     <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           height="285"
-          image="https://www.london.ac.uk/sites/default/files/styles/max_1300x1300/public/2018-10/london-aerial-cityscape-river-thames_1.jpg?itok=6LenFxuz"
+          image={props.imgURL}
           alt="green iguana"
         />
         <CardContent sx={{ backgroundColor: "primary.dark" }}>

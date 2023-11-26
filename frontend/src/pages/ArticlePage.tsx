@@ -135,7 +135,7 @@ export default function ArticlePage() {
                     <CardCategory
                       key={index}
                       title={article ? article.title : ""}
-                      img={
+                      imgURL={
                         article && article.featuredImage
                           ? article.featuredImage.node.mediaItemUrl
                           : ""

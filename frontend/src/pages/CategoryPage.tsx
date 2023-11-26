@@ -10,14 +10,23 @@ import usePostsData from "../hooks/usePostsData";
 export default function CategoryPage() {
   const {loading, error, data} = usePostsData()
   const { category, slug } = useParams();
+  const postsData = data && data.posts && data.posts.nodes.filter((post: Post, index: number)=> post.categories.nodes[0].slug === category ? post : null) 
+ 
+ 
+  interface CategoryItem {
+    slug: string;
+    name: string;
+    imgURL: string;
+  }
 
-  const postsData = data && data.posts ? data.posts.nodes.map((post: Post, index: number)=> post.categories.nodes[0].name === category ? post : null) : null
+  const categoryItems: CategoryItem[] = [{name: 'Crônicas', slug: 'cronicas', imgURL: 'https://cdn.pixabay.com/photo/2023/11/21/10/12/tea-8402876_1280.png'}, {name: 'Reportagens', slug: 'reportagens', imgURL: 'https://cdn.pixabay.com/photo/2023/09/01/22/16/keyboard-8227845_1280.png'}, {name: 'Ensaios', slug: 'ensaios', imgURL: 'https://cdn.pixabay.com/photo/2023/06/22/15/15/ice-cream-8081692_1280.png'}]
+
   
   return (
     <>
       <Navbar />
 
-      {postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === true && (
+      {postsData ? postsData.map((post: Post, index: number) => post && post.isSticky && (
          <Box
          sx={{
            position: "relative",
@@ -74,9 +83,9 @@ export default function CategoryPage() {
           { postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === false && (
 
             <Grid item xs={12} sm={6} md={6} lg={6} xl={4} key={index}>
-              <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].name} slug={post.slug} />
+              <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].slug} slug={post.slug} />
             </Grid>
-          )).slice(0,2) : null}
+          )).slice(0,3) : null}
         </Grid>
 
        <Box sx={{ backgroundColor: "primary.dark" }}>
@@ -99,23 +108,28 @@ export default function CategoryPage() {
             spacing={1}
             sx={{ paddingBottom: 6, paddingX: 4 }}
           >
-            {["Cronicas", "Reportagens"].map((card, index) => (
-              <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={index}>
-                <CardCategory title={card} />
-              </Grid>
+            
+            {categoryItems
+            .filter((categoryItem: CategoryItem) => categoryItem.slug !== category)
+            .map((filteredItems: CategoryItem, index: number) => (
+              <Grid key={index} item xs={12} sm={6} md={6} lg={6} xl={6}>
+                <CardCategory title={filteredItems.name} imgURL={filteredItems.imgURL} />
+                </Grid>
             ))}
+
           </Grid>
         </Container>
       </Box>
 
+     
 
       <Grid container spacing={1} sx={{ paddingY: 6, paddingX: 4 }}>
           { postsData ? postsData.map((post: Post, index: number) => post && post.isSticky === false && (
 
             <Grid item xs={12} sm={6} md={6} lg={6} xl={4} key={index}>
-              <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].name} slug={post.slug} />
+              <CardContent title={post.title} excerpt={post.excerpt.replace(/<\/?[^>]+(>|$)/g, "")} imageURL={post.featuredImage ? post.featuredImage.node.mediaItemUrl : ""} category={post.categories.nodes[0].slug} slug={post.slug} />
             </Grid>
-          )).slice(2,4) : null}
+          )).slice(3,7) : null}
         </Grid>
 
       </Container>
